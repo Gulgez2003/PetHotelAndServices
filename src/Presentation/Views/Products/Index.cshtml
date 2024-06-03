@@ -1,0 +1,259 @@
+﻿@{
+    ViewData["Title"] = "Products";
+    var totalPrice = 0;
+}
+
+@model ProductCartItemViewModel
+
+<!--====== SHOP SECTION START ======-->
+<section class="Shop-section pt-120 pb-120">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Shop Sidebar -->
+            <div class="col-lg-4 col-md-10 col-sm-10">
+                <div class="sidebar mt-0">
+                    <!-- About Author Widget -->
+                    <!-- Search Widget -->
+                    <div class="widget search-widget mb-40">
+                        <h5 class="widget-title">Search Objects</h5>
+                        <form asp-action="Search" asp-controller="Products">
+                            <input type="text" name="name" placeholder="Search your keyword...">
+                            <button type="submit"><i class="bi bi-search open-icon"></i></button>
+                        </form>
+                    </div>
+                    <!-- Cart Widget -->
+                    <div class="widget popular-feeds mb-40">
+                        <h5 class="widget-title">Cart</h5>
+                        <div class="popular-feed-loop">
+                            @foreach (var item in Model.CartItems)
+                            {
+                                <div class="single-popular-feed" data-basket-id="@item.Id">
+                                    @if (item.ProductImages.Any(x => x.IsMain))
+                                    {
+                                        <div class="feed-img">
+                                            <img src="~/assets/img/post/@item.ProductImages.FirstOrDefault(x => x.IsMain).Path" alt="Image">
+                                        </div>
+                                    }
+                                    <div class="feed-desc desc">
+                                        <div class="cart-flex">
+                                            <h6><a href="#">@item.Title</a></h6>
+                                            <a href="#" class="deleteBtn btn-icon" data-basket-id="@item.Id"><i class="fa-solid fa-xmark"></i></a>
+                                        </div>
+                                        <span class="price">$@item.Price</span>
+                                    </div>
+                                </div>
+                            }
+                            <div class="widget-cart-info">
+                                <div class="cart-details">
+                                    <span>Subtotal:</span>
+                                    <span id="orderTotal">$0.00</span>
+                                </div>
+                                <div class="cart-buttons">
+                                    <a asp-controller="Cart" asp-action="Index" class="main-btn btn-filled">View Cart</a>
+                                    <a asp-controller="Checkout" asp-action="Create" class="main-btn btn-filled">Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-10">
+                <div class="shop-products-wrapper">
+                    <div class="product-wrapper services-tab-area">
+                        <div class="row">
+                            @foreach (var item in Model.PaginateVM.Models)
+                            {
+                                <div class="col-xl-4 col-lg-6 col-md-6">
+                                    <div class="food-box shop-box style-2">
+                                        <div class="thumb">
+                                            <img src="~/assets/img/post/@item.ProductImages.FirstOrDefault(x => x.IsMain).Path" alt="images">
+                                            <div class="button-group">
+                                                <a class="submitFavouriteBtn" data-favourite-id="@item.Id" data-product-name="@item.Title">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                                <a class="submitCartBtn" data-cart-id="@item.Id" data-product-name="@item.Title">
+                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                </a>
+                                                <a asp-action="Index" asp-controller="ProductDetails" asp-route-id="@item.Id"><i class="far fa-eye"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="desc text-center">
+                                            <h4>
+                                                <a href="shop-detail.html">@item.Title</a>
+                                            </h4>
+                                            <span class="price">$@item.Price</span>
+                                            <a href="#" data-cart-id="@item.Id" data-product-name="@item.Title" class="main-btn btn-filled mt-10 submitCartBtn">Add to Cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination-wrap">
+                    <ul>
+                        <li>
+                            @if (Model.PaginateVM.Previous)
+                            {
+                                <a asp-controller="Products" asp-action="Index" asp-route-currentPage="@(Model.PaginateVM.CurrentPage-1)"><i class="fa-solid fa-chevron-left"></i></a>
+                            }
+                            else
+                            {
+                                <span><i class="fa-solid fa-chevron-left"></i></span>
+                            }
+                        </li>
+                        @for (int i = 1; i <= Model.PaginateVM.PageCount; i++)
+                        {
+                            <li class="@(Model.PaginateVM.CurrentPage == i ? "active" : "")">
+                                <a asp-controller="Products" asp-action="Index" asp-route-currentPage="@i">@i</a>
+                            </li>
+                        }
+                        <li>
+                            @if (Model.PaginateVM.Next)
+                            {
+                                <a asp-controller="Products" asp-action="Index" asp-route-currentPage="@(Model.PaginateVM.CurrentPage+1)"><i class="fa-solid fa-chevron-right"></i></a>
+                            }
+                            else
+                            {
+                                <span><i class="fa-solid fa-chevron-right"></i></span>
+                            }
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== SHOP SECTION END ======-->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    const deleteBtns = document.querySelectorAll(".deleteBtn");
+
+    deleteBtns.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const id = btn.getAttribute("data-basket-id");
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "GET",
+                        url: `/Cart/Delete/${id}`,
+                        success: function (data) {
+                            if (data.status === 200) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                );
+                                $(`div[data-basket-id="${id}"]`).remove();
+
+                            } else {
+                                Swal.fire(
+                                    'Error',
+                                    'An error occurred while deleting the item.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Error',
+                                'An error occurred while deleting the item.',
+                                'error'
+                            );
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Cancelled',
+                        "Your file has not been deleted.",
+                        'error'
+                    );
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $(".submitCartBtn").click(function () {
+
+            const productId = $(this).data("cart-id");
+            const productName = $(this).data("product-name");
+
+            $.ajax({
+                url: "/Cart/AddToCart/${productId}",
+                type: "GET",
+                data: {
+                    productId: productId
+                },
+                success: function (data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: productName + ' has been added to the cart',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("AJAX Error: " + textStatus, errorThrown);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Failed to add ' + productName + ' to the cart',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $(".submitFavouriteBtn").click(function () {
+            const productId = $(this).data("favourite-id");
+            const productName = $(this).data("product-name");
+
+            $.ajax({
+                url: "/Wishlist/AddToWishlist/${productId}",
+                type: "GET",
+                data: {
+                    productId: productId
+                },
+                success: function (data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: productName + ' has been added to the Wishlist',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("AJAX Error: " + textStatus, errorThrown);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Failed to add ' + productName + ' to the Wishlist',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            });
+
+        });
+    });
+
+</script>

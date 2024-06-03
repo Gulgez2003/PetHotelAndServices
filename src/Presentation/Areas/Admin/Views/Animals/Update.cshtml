@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+}
+
+@model AnimalCategoryVM
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Animal</li>
+                </ol>
+            </nav>
+        </div>
+        <form class="needs-validation clearfix row" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="@Model.UpdateCommand.Id" />
+            <div class="col-xl-6 col-md-12">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="ms-panel ms-panel-fh">
+                    <div class="ms-panel-header">
+                        <h6>Edit Animal Form</h6>
+                    </div>
+                    <div class="ms-panel-body">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Animal Name</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.UpdateCommand.Name" value="@Model.UpdateCommand.Name" class="form-control" placeholder="Animal Name" required>
+                                    <span asp-validation-for="@Model.UpdateCommand.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom22">Select Catagories</label>
+                                <div class="input-group">
+                                    <div class="row">
+                                        @if (Model.Categories != null)
+                                        {
+                                            @foreach (var category in Model.Categories)
+                                            {
+                                                bool isSelected = Model.UpdateCommand.Categories.Any(c => c.Id == category.Id);
+                                                <div class="col-md-6">
+                                                    <input type="checkbox" name="UpdateCommand.SelectedCategories" value="@category.Id" @(isSelected ? "checked disabled" : "") />
+                                                    @category.Name
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 mb-3">
+                                <label class="form-label">Upload Image</label>
+                                <input type="file" class="form-control" accept="image/*" asp-for="@Model.UpdateCommand.File">
+                                <span asp-validation-for="@Model.UpdateCommand.File" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ms-panel">
+                            <div class="ms-panel-header">
+                                <h6>Animal </h6>
+                            </div>
+                            <div class="ms-panel-body">
+                                <div id="imagesSlider" class="ms-image-slider carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            @if (Model.UpdateCommand.AnimalImage != null)
+                                            {
+                                                <img id="selectedImage" class="d-block w-100" src="~/assets/img/post/@Model.UpdateCommand.AnimalImage.Path" alt="First slide">
+                                            }
+                                        </div>
+                                    </div>
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#imagesSlider" data-slide-to="0" class="active">
+                                            @if (Model.UpdateCommand.AnimalImage != null)
+                                            {
+                                                <img id="selectedIndicatorImage" class="d-block w-100" src="~/assets/img/post/@Model.UpdateCommand.AnimalImage.Path" alt="First slide">
+                                            }
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="ms-panel-header new">
+                                <a asp-controller="Animals" asp-action="Index" class="btn btn-secondary d-block">Back</a>
+                                <button class="btn btn-primary d-block" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelector('input[type="file"]').addEventListener('change', function () {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            document.getElementById('selectedImage').src = e.target.result;
+            document.getElementById('selectedIndicatorImage').src = e.target.result;
+        }
+
+        reader.readAsDataURL(this.files[0]);
+    });
+</script>

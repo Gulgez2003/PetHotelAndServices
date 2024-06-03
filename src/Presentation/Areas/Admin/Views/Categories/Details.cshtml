@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+
+@model CategoryGetDTO
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Category Detail</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-12">
+            <div class="ms-panel">
+                <div class="ms-panel-header">
+                    <h6>Category Details</h6>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-6">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-body">
+                    <h4 class="section-title bold">Category Info</h4>
+                    <table class="table ms-profile-information">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Category Name</th>
+                                <td>@Model.Name</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Created Date</th>
+                                <td>@Model.CreatedDate</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Created By</th>
+                                <td>@Model.CreatedBy</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Modified Date</th>
+                                <td>@Model.LastModifiedDate</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Modified By</th>
+                                <td>@Model.LastModifiedBy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="new">
+                        <button asp-action="Update" asp-controller="Categpries" asp-route-id="@Model.Id" type="button" class="btn btn-primary">Edit</button>
+                        <button data-category-id="@Model.Id" type="button" class="btn btn-secondary deleteBtn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-6">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-body">
+                    <h4 class="section-title bold">Animals</h4>
+                    <p class="description">
+                        @foreach (var item in Model.Animals)
+                        {
+                            <span class="badge badge-primary">@item.Name </span>
+                        }
+                    </p>
+                </div>
+                <div class="ms-panel-body">
+                    <h4 class="section-title bold">SubCategories</h4>
+                    <p class="description">
+                        @foreach (var item in Model.SubCategories)
+                        {
+                            <span class="badge badge-primary">@item.Name </span>
+                        }
+                    </p>
+                </div>
+                <div class="ms-quick-stats">
+                    <div class="ms-stats-grid">
+                        <i class="fa fa-bullhorn"></i>
+                        <p class="ms-text-dark">1,033</p>
+                        <span>Today Order</span>
+                    </div>
+                    <div class="ms-stats-grid">
+                        <i class="fa fa-heart"></i>
+                        <p class="ms-text-dark">3,039</p>
+                        <span>Favourite</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

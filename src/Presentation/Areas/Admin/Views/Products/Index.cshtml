@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    var count = 0;
+}
+
+@model List<ProductGetDTO>
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Product List</li>
+                </ol>
+            </nav>
+            <div class="ms-panel">
+                <div class="ms-panel-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Product List</h6>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <a type="button" asp-action="Create" asp-controller="Products" class="btn btn-square btn-primary"><i class="fa-solid fa-plus"></i> Add</a>
+                    </div>
+                </div>
+                <div class="ms-panel-body">
+                    <div class="table-responsive">
+                        <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table w-100 thead-primary dataTable no-footer" role="grid" aria-describedby="data-table-5_info" style="width: 462px;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th style="width: 53px;">#</th>
+                                                <th style="width: 67px;">Title</th>
+                                                <th style="width: 67px;">Price</th>
+                                                <th style="width: 67px;">Sub-category</th>
+                                                <th style="width: 67px;">UnitsInStock</th>
+                                                <th style="width: 67px;">Created By</th>
+                                                <th style="width: 67px;">Created Date</th>
+                                                <th style="width: 54px;">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                if (!item.IsDeleted)
+                                                {
+                                                    count++;
+                                                    <tr data-product-id="@item.Id" role="row">
+                                                        <td class="align-middle">@count</td>
+                                                        @if (item.ProductImages.Any(x => x.IsMain))
+                                                        {
+                                                            <td class="align-middle" style="display: flex; align-items: center;">
+                                                                <img src="~/assets/img/post/@item.ProductImages.FirstOrDefault(x => x.IsMain).Path" style="width: 50px; height: 30px; margin-right: 10px;">
+                                                                <span style="display: inline-block; vertical-align: middle;">@item.Title</span>
+                                                            </td>
+                                                        }
+                                                        <td class="align-middle">@item.Price</td>
+                                                        <td class="align-middle">@item.SubCategory.Name</td>
+                                                        <td class="align-middle">@item.UnitsInStock</td>
+                                                        <td class="align-middle">@item.CreatedBy</td>
+                                                        <td class="align-middle">@item.CreatedDate</td>
+                                                        <td class="align-middle row">
+                                                            <a asp-action="Update" asp-controller="Products" asp-route-id="@item.Id"><i style="color: green" class="fa-solid fa-pencil"></i></a>
+                                                            <a asp-action="Details" asp-controller="Products" asp-route-id="@item.Id"><i style="color: blue" class="fa-regular fa-eye"></i></a>
+                                                            <form method="post">
+                                                                <button asp-action="Delete" asp-controller="Products" asp-route-id="@item.Id" class="btn  btn-icon deleteBtn" data-animal-id="@item.Id" style="margin-top: 0 !important;padding: 0 !important;min-width: 26px !important;">
+                                                                    <i style="color: red" class="fa-regular fa-trash-can" aria-hidden="true"></i>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

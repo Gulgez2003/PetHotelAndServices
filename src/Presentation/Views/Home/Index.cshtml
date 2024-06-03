@@ -1,0 +1,370 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    var count = 0;
+}
+
+@model ServiceProductViewModel
+
+<!--====== ABOUT SECTION START ======-->
+<section class="about-section mb-130">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6 col-md-10 wow fadeInLeft" data-wow-delay=".3s">
+                <div class="row about-features-boxes fetaure-masonary">
+                    <div class="col-sm-6">
+                        <div class="single-feature-box">
+                            <div class="icon">
+                                <i class="fa-solid fa-heart" style="color: #ff8e15;"></i>
+                            </div>
+                            <h4><p href="#">Lovely Team</p></h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="single-feature-box only-bg mt-30" style="background-image: url(../assets/img/feature/04.jpg);">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="single-feature-box only-bg mt-30" style="background-image: url(../assets/img/feature/05.jpg);">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="single-feature-box dark mt-30">
+                            <div class="icon">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                            </div>
+                            <h4><p href="#">No Cages</p></h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-8 col-sm-10 wow fadeInRight" data-wow-delay=".3s">
+                <div class="abour-text pl-50 pr-50">
+                    <div class="section-title mb-30">
+                        <span class="title-tag"><i class="fa-solid fa-shield-dog"></i>about us</span>
+                        <h2>Welcome To Mochitel <span class="highlight">Pet Care<span class="fa-solid fa-heart" style="color: #ff0000;"></span></span>.</h2>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                    <a asp-controller="About" asp-action="Index" class="main-btn btn-filled mt-40"> More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-right-bottom">
+        <div class="about-bottom-img">
+            <img src="~/assets/img/bg/03.jpg" alt="">
+        </div>
+    </div>
+</section>
+<!--====== ABOUT SECTION END ======-->
+<!--====== TEXT BLOCK START ======-->
+<section class="text-block with-pattern pt-115 pb-115">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6 col-md-10 order-2 order-lg-1">
+                <div class="block-text">
+                    <div class="section-title mb-20">
+                        <span class="title-tag"><i class="fa-solid fa-shield-dog"></i>intro video</span>
+                        <h2>
+                            Watch Your Pet Play <span class="highlight">Around<span class="pulsing-dot"></span></span>
+                        </h2>
+                    </div>
+                    <p class="pr-50">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat you have to understand
+                        this.
+                    </p>
+                    <a asp-controller="About" asp-action="Index" class="main-btn btn-filled mt-40">More</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-10 order-1 order-lg-2 wow fadeInRight" data-wow-delay=".3s">
+                <div class="video-wrap video-wrap-two mb-small" style="background-image: url(../assets/img/text-block/03.jpg);">
+                    <a href="http://www.youtube.com/embed/watch?v=EEJFMdfraVY" class="popup-video"><i class="fas fa-play"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pattern-wrap">
+        <div class="pattern"></div>
+    </div>
+    <div class="shape-1 parallax_scroll_up d-none d-sm-block">
+        <img src="~/assets/img/shapes/shape-6.png" alt="shapes">
+    </div>
+    <div class="shape-2 parallax_scroll_down d-none d-sm-block">
+        <img src="~/assets/img/shapes/shape-7.png" alt="shapes">
+    </div>
+</section>
+<!--====== TEXT BLOCK END ======-->
+<!--====== ROOM SLIDER START ======-->
+<section class="room-slider mt-115">
+    <div class="container-fluid p-0">
+        <div class="row rooms-slider-one">
+            <div class="col">
+                <div class="slider-img" style="background-image: url(../assets/img/room-slider/01.jpg);">
+                </div>
+            </div>
+            <div class="col">
+                <div class="slider-img" style="background-image: url(../assets/img/room-slider/02.jpg);">
+                </div>
+            </div>
+            <div class="col">
+                <div class="slider-img" style="background-image: url(../assets/img/room-slider/03.jpg);">
+                </div>
+            </div>
+            <div class="col">
+                <div class="slider-img" style="background-image: url(../assets/img/room-slider/04.jpg);">
+                </div>
+            </div>
+            <div class="col">
+                <div class="slider-img" style="background-image: url(../assets/img/room-slider/05.jpg);">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rooms-content-wrap">
+        <div class="container">
+            <div class="row justify-content-center justify-content-md-start">
+                <div class="col-xl-4 col-lg-5 col-sm-8">
+                    <div class="room-content-box">
+                        <div class="slider-count"></div>
+                        <div class="slider-count-big"></div>
+                        <div class="room-content-slider">
+                            <div class="single-content">
+                                <div class="icon">
+                                    <i class="fa-solid fa-cat"></i>
+                                </div>
+                                <h3><a href="#">Cats</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                            </div>
+                            <div class="single-content">
+                                <div class="icon">
+                                    <i class="fa-solid fa-dog"></i>
+                                </div>
+                                <h3><a href="#">Dogs</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                            </div>
+                            <div class="single-content">
+                                <div class="icon">
+                                    <i class="fa-brands fa-earlybirds"></i>
+                                </div>
+                                <h3><a href="#">Birds</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                            </div>
+                            <div class="single-content">
+                                <div class="icon">
+                                    <i class="fa-solid fa-otter"></i>
+                                </div>
+                                <h3><a href="#">Hamsters</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                            </div>
+                            <div class="single-content">
+                                <div class="icon">
+                                    <i class="fa-solid fa-fish-fins"></i>
+                                </div>
+                                <h3><a href="#">Fish</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== ROOM SLIDER END ======-->
+<!--====== CORE FEATURES START ======-->
+<section class="core-feature-section bg-white pt-115 pb-115">
+    <div class="container">
+        <div class="section-title text-center mb-50">
+            <span class="title-tag"><i class="fa-solid fa-shield-dog"></i>facilities </span>
+            <h2>Our <span class="highlight">Services</span></h2>
+        </div>
+        <!-- Featre Loop -->
+        <div class="row features-loop">
+            @foreach (var service in Model.Services)
+            {
+                count++;
+                <div class="col-lg-4 col-sm-6 order-@count">
+                    <div class="feature-box with-hover-img wow fadeInLeft" data-wow-delay=".3s">
+                        <div class="icon">
+                            @if (service.Title == "Pet Grooming")
+                            {
+                                <i class="fa-solid fa-scissors"></i>
+                            }
+                            else if (service.Title == "Pet Rescue")
+                            {
+                                <i class="fa-solid fa-paw"></i>
+                            }
+                            else if (service.Title == "Pet Care")
+                            {
+                                <i class="fa-solid fa-cat"></i>
+                            }
+                            else if (service.Title == "Onboarding")
+                            {
+                                <i class="fa-solid fa-baseball"></i>
+                            }
+                            else if (service.Title == "Pet Shower")
+                            {
+                                <i class="fa-solid fa-shower"></i>
+                            }
+                            else if (service.Title == "Pet Vet")
+                            {
+                                <i class="fa-solid fa-shield-dog"></i>
+                            }
+                        </div>
+                        <h3><a href="#">@service.Title</a></h3>
+                        <p>
+                            @service.Description
+                        </p>
+                        <span class="count">0@(count)</span>
+                        @if (service.Title == "Pet Grooming")
+                        {
+                            <div class="hover-img" style="background-image: url(../assets/img/feature/01.jpg);"></div>
+                        }
+                        else if (service.Title == "Pet Care")
+                        {
+                            <div class="hover-img" style="background-image: url(../assets/img/feature/02.jpg);"></div>
+                        }
+                        else if (service.Title == "Pet Shower")
+                        {
+                            <div class="hover-img" style="background-image: url(../assets/img/feature/03.jpg);"></div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!--====== CORE FEATURES END ======-->
+<!--====== MENU PART START ======-->
+<section class="menu-area bg-white menu-with-shape menu-nagative-gallery">
+    <div class="container">
+        <!-- section title -->
+        <div class="row align-items-center">
+            <div class="col-md-8 col-sm-8">
+                <div class="section-title">
+                    <span class="title-tag"><i class="fa-solid fa-shield-dog"></i>Menu</span>
+                    <h2>Our Foods <span class="highlight">Menu</span></h2>
+                </div>
+            </div>
+        </div>
+        <!-- Menu Slider -->
+        <div class="menu-slider mt-80 menu-loop">
+            <div class="single-slider">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-10">
+                        @foreach (var product in Model.Products.Take(3))
+                        {
+                            <div class="single-menu-box hover-drak">
+                                @if (product.ProductImages.Any(x => x.IsMain))
+                                {
+                                    <div class="menu-img" style="background-image: url(../assets/img/post/@product.ProductImages.FirstOrDefault(x => x.IsMain).Path" );"></div>
+                                }
+                                <div class="menu-desc">
+                                    <h4><a href="#">@product.Title</a></h4>
+                                    <p>
+                                        @product.Description
+                                    </p>
+                                    <a asp-action="Index" asp-controller="ProductDetails" asp-route-id="@product.Id" class="menu-link"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-lg-6 col-md-10">
+                        @foreach (var product in Model.Products.Skip(3).Take(3))
+                        {
+                            <div class="single-menu-box hover-drak">
+                                @if (product.ProductImages.Any(x => x.IsMain))
+                                {
+                                    <div class="menu-img" style="background-image: url(../assets/img/post/@product.ProductImages.FirstOrDefault(x => x.IsMain).Path" );"></div>
+                                }
+                                <div class="menu-desc">
+                                    <h4><a href="#">@product.Title</a></h4>
+                                    <p>
+                                        @product.Description
+                                    </p>
+                                    <a asp-action="Index" asp-controller="ProductDetails" asp-route-id="@product.Id" class="menu-link"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== MENU PART END ======-->
+<!--====== INSTAGRAM FEED PART START ======-->
+<div class="instagram-feed-section">
+    <div class="container-fluid p-0">
+        <div class="instagram-slider">
+            <div class="image">
+                <a href="assets/img/instagram/01.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/01.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/02.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/02.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/03.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/03.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/04.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/04.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/05.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/05.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/06.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/06.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/01.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/01.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/02.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/02.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/03.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/03.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/04.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/04.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/05.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/05.jpg" alt="instagram-feed">
+                </a>
+            </div>
+            <div class="image">
+                <a href="assets/img/instagram/06.jpg" class="insta-popup">
+                    <img src="~/assets/img/instagram/06.jpg" alt="instagram-feed">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== INSTAGRAM FEED PART END ======-->

@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+@model AnimalCategoryVM
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Animal</li>
+                </ol>
+            </nav>
+        </div>
+        <form class="needs-validation clearfix row" method="post" enctype="multipart/form-data">
+            <div class="col-xl-6 col-md-12">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="ms-panel ms-panel-fh">
+                    <div class="ms-panel-header">
+                        <h6>Add Animal Form</h6>
+                    </div>
+                    <div class="ms-panel-body">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Animal Name</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.CreateCommand.Name" class="form-control" placeholder="Animal Name" required>
+                                    <span asp-validation-for="@Model.CreateCommand.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom22">Select Catagories</label>
+                                <div class="input-group">
+                                    <div class="row">
+                                        @if (Model.Categories != null)
+                                        {
+                                            @foreach (var category in Model.Categories)
+                                            {
+                                                <div class="col-md-6">
+                                                    <input type="checkbox" name="CreateCommand.SelectedCategories" value="@category.Id" />
+                                                    @category.Name
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 mb-3">
+                                <label class="form-label">Upload Image</label>
+                                <input type="file" class="form-control" accept="image/*" asp-for="@Model.CreateCommand.File">
+                                <span asp-validation-for="@Model.CreateCommand.File" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ms-panel">
+                            <div class="ms-panel-header">
+                                <h6>Animal </h6>
+                            </div>
+                            <div class="ms-panel-body">
+                                <div id="imagesSlider" class="ms-image-slider carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img id="selectedImage" class="d-block w-100" src="" alt="First slide">
+                                        </div>
+                                    </div>
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#imagesSlider" data-slide-to="0" class="active">
+                                            <img id="selectedIndicatorImage" class="d-block w-100" src="" alt="First slide">
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="ms-panel-header new">
+                                <a asp-controller="Animals" asp-action="Index" class="btn btn-secondary d-block" type="submit">Back</a>
+                                <button class="btn btn-primary d-block" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelector('input[type="file"]').addEventListener('change', function () {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            document.getElementById('selectedImage').src = e.target.result;
+            document.getElementById('selectedIndicatorImage').src = e.target.result;
+        }
+
+        reader.readAsDataURL(this.files[0]);
+    });
+</script>

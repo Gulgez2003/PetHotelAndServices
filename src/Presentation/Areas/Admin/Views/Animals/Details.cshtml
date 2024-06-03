@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+
+@model AnimalGetDTO
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Animal Detail</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-12">
+            <div class="ms-panel">
+                <div class="ms-panel-header">
+                    <h6>Animal Details</h6>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-6">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-body">
+                    <h4 class="section-title bold">Animal Info</h4>
+                    <table class="table ms-profile-information">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Animal Name</th>
+                                <td>@Model.Name</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Created Date</th>
+                                <td>@Model.CreatedDate</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Created By</th>
+                                <td>@Model.CreatedBy</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Modified Date</th>
+                                <td>@Model.LastModifiedDate</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Modified By</th>
+                                <td>@Model.LastModifiedBy</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Categories</th>
+                               
+                            </tr>
+                            <tr>
+                                <th>
+                                    @foreach (var item in Model.Categories)
+                                    {
+                                        <span class="badge badge-primary">@item.Name </span>
+                                    }
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-6">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-body">
+                    <div id="imagesSlider" class="ms-image-slider carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                @if (Model.AnimalImage != null)
+                                {
+                                    <img id="selectedImage" class="d-block w-100" src="~/assets/img/post/@Model.AnimalImage.Path" alt="First slide">
+                                }
+                            </div>
+                        </div>
+                        <ol class="carousel-indicators">
+                            <li data-target="#imagesSlider" data-slide-to="0" class="active">
+                                @if (Model.AnimalImage != null)
+                                {
+                                    <img id="selectedIndicatorImage" class="d-block w-100" src="~/assets/img/post/@Model.AnimalImage.Path" alt="First slide">
+                                }
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="new">
+                        <button asp-action="Update" asp-controller="Animals" asp-route-id="@Model.Id" type="button" class="btn btn-primary">Edit</button>
+                        <button data-animal-id="@Model.Id" type="button" class="btn btn-secondary deleteBtn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

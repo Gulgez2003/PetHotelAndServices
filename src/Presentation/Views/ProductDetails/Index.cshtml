@@ -1,0 +1,223 @@
+﻿@{
+    ViewData["Title"] = "Product Details";
+}
+@model ProductsViewModel
+
+<!--====== SHOP SECTION START ======-->
+<section class="Shop-section pt-120 pb-120">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="shop-detail-image">
+                    <div class="detail-slider-1">
+                        @foreach (var image in Model.Product.ProductImages)
+                        {
+                            <div class="slide-item @(image == Model.Product.ProductImages.First() ? "active" : "")">
+                                <div class="image-box">
+                                    <a href="#">
+                                        <img src="~/assets/img/post/@image.Path" class="img-fluid" alt="img">
+                                    </a>
+                                    <span class="price">Sale</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="detail-slider-2">
+                        @foreach (var image in Model.Product.ProductImages)
+                        {
+                            <div class="slide-item @(image == Model.Product.ProductImages.First() ? "active" : "")">
+                                <div class="image-box">
+                                    <img src="~/assets/img/post/@image.Path" class="img-fluid" alt="img">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="shop-detail-content">
+                    <h3 class="product-title mb-20">@Model.Product.Title</h3>
+                    <div class="desc mb-20 pb-20 border-bottom">
+                        <span class="price">₼@Model.Product.Price</span>
+                    </div>
+                    <div class="mt-20 mb-20">
+                        <div class="d-inline-block other-info">
+                            <h6>
+                                Availability:
+                                <span class="text-success ml-2">
+                                    @(Model.Product.InStock == true ? "In Stock" : "Out of Stock")
+                                </span>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="short-descr mb-20">
+                        <p>@Model.Product.Description</p>
+                    </div>
+                    <div class="color-sec mb-20">
+                        <label>Colours</label>
+                        <div class="color-box">
+                            @foreach (var colour in Model.Product.Colours)
+                            {
+                                <label class="m-0">
+                                    <input type="radio" name="color">
+                                    <span class="choose-color @colour.ToString().ToLower()"></span>
+                                </label>
+                            }
+                        </div>
+                    </div>
+                    <div class="quantity-cart d-block d-sm-flex">
+                        <div class="cart-btn pl-40">
+                            <a href="#" class="main-btn btn-border">Add to Cart</a>
+                        </div>
+                    </div>
+                    <div class="other-info flex mt-20">
+                        <h6>Category:</h6>
+                        <ul>
+                            <li class="list-inline-item mr-2">
+                                <a href="#" class="grey">@Model.Product.SubCategory.Name</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="product-description mt-100">
+                    <div class="tabs">
+                        <ul class="nav nav-tabs justify-content-center">
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#reviews">Reviews (3)</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content pb-0">
+                            <div class="tab-pane fade" id="reviews">
+                                <div class="blog-details-box">
+                                    <div class="comment-template">
+                                        <h3 class="box-title">03 Reviews</h3>
+                                        <ul class="comments-list mb-100">
+                                            @foreach (var item in Model.Testimonials)
+                                            {
+                                                <li>
+                                                    <div class="comment-img">
+                                                        <img src="~/assets/img/blog-details/avatar-3.jpg" alt="img">
+                                                    </div>
+                                                    <div class="comment-desc">
+                                                        <div class="desc-top">
+                                                            <h6>@item.FullName</h6>
+                                                            <span class="date">@item.CreatedDate</span>
+                                                        </div>
+                                                        <p>
+                                                            @item.Comment
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                        <h3 class="box-title">Post Comment</h3>
+                                        <div class="comment-form">
+                                            <form method="post" id="commentForm">
+                                                <div class="input-group input-group-two textarea mb-20">
+                                                    <textarea asp-for="@Model.CreateCommentCommand.Comment" placeholder="Type your Review...."></textarea>
+                                                    <div class="icon"><i class="fas fa-pen"></i></div>
+                                                </div>
+                                                <div class="input-group  mt-30">
+                                                    <button type="submit" class="main-btn btn-filled">
+                                                        <i class="far fa-comments"></i> Post
+                                                        Review
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== SHOP SECTION END ======-->
+<!--====== Related Products START ======-->
+<section class="services-tab-area bg-black pt-115 pb-85">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8 col-sm-7">
+                <div class="section-title">
+                    <span class="title-tag">Shop</span>
+                    <h2>Related Products</h2>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-5 d-none d-sm-block">
+                <div class="shop-post-arrow arrow-style text-right">
+                </div>
+            </div>
+        </div>
+        <div class="row related-product-slider mt-80">
+            @foreach (var product in Model.Products)
+            {
+                if (product.SubCategory.Name == Model.Product.SubCategory.Name)
+                {
+                    <div class="col-12">
+                        <div class="food-box shop-box">
+                            <div class="thumb">
+                                <img src="~/assets/img/post/@product.ProductImages.FirstOrDefault(x => x.IsMain).Path" alt="images">
+                                <div class="badges">
+                                    <span class="price">Sale</span>
+                                    <span class="price discounted">-15%</span>
+                                </div>
+                                <div class="button-group">
+                                    <a href="#"><i class="far fa-heart"></i></a>
+                                    <a href="#"><i class="far fa-sync-alt"></i></a>
+                                    <a href="#" data-toggle="modal" data-target="#quickViewModal"><i class="far fa-eye"></i></a>
+                                </div>
+                            </div>
+                            <div class="desc">
+                                <h4>
+                                    <a href="shop-detail.html">@product.Title</a>
+                                </h4>
+                                <span class="price">₼@product.Price </span>
+                                <a href="shop-detail.html" class="link"><i class="fal fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+<!--====== Related Products END ======-->
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const commentForm = document.getElementById("commentForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    submitBtn.addEventListener("click", (event) => {
+        event.preventDefault(); 
+
+        const formData = new FormData(commentForm);
+
+        fetch("/ProductDetails/Index", {
+            method: "POST",
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire(
+                        'Your message has been submitted for review',
+                        'Your comment will be published after admin approval.'
+                    );
+
+                    commentForm.reset();
+                } else {
+                    Swal.fire('Error', data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire('Error', 'An error occurred while submitting the form.', 'error');
+            });
+    });
+</script>

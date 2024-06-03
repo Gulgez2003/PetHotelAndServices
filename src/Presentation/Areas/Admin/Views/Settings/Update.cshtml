@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+
+@model UpdateSettingCommand
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Setting</li>
+                </ol>
+            </nav>
+        </div>
+        <form class="needs-validation clearfix row" method="post" enctype="multipart/form-data">
+            <div class="col-xl-12 col-md-12">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="ms-panel ms-panel-fh">
+                    <div class="ms-panel-header">
+                        <h6>Edit Setting Form</h6>
+                    </div>
+                    <div class="ms-panel-body">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Address</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.Address" value="@Model.Address" class="form-control" placeholder="Address" required>
+                                    <span asp-validation-for="@Model.Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                             <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Phone Number</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="Phone Number" required>
+                                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Email</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.Email" value="@Model.Email" class="form-control" placeholder="Email" required>
+                                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Information</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.Information" value="@Model.Information" class="form-control" placeholder="Information" required>
+                                    <span asp-validation-for="@Model.Information" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Twitter Icon</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.TwitterIcon" value="@Model.TwitterIcon" class="form-control" placeholder="TwitterIcon" required>
+                                    <span asp-validation-for="@Model.TwitterIcon" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">FaceBook Icon</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.FaceBookIcon" value="@Model.FaceBookIcon" class="form-control" placeholder="FaceBook Icon" required>
+                                    <span asp-validation-for="@Model.FaceBookIcon" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Instagram Icon</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.InstagramIcon" value="@Model.InstagramIcon" class="form-control" placeholder="InstagramIcon" required>
+                                    <span asp-validation-for="@Model.InstagramIcon" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ms-panel-header new">
+                        <a asp-controller="Settings" asp-action="Index" class="btn btn-secondary d-block">Back</a>
+                        <button class="btn btn-primary d-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

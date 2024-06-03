@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+}
+
+@model CategoryAnimalSubCategoryVM
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Category</li>
+                </ol>
+            </nav>
+        </div>
+        <form class="needs-validation clearfix row" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="@Model.UpdateCommand.Id" />
+            <div class="col-xl-12 col-md-12">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="ms-panel ms-panel-fh">
+                    <div class="ms-panel-header">
+                        <h6>Edit Category Form</h6>
+                    </div>
+                    <div class="ms-panel-body">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Category Name</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.UpdateCommand.Name" value="@Model.UpdateCommand.Name" class="form-control" placeholder="Category Name" required>
+                                    <span asp-validation-for="@Model.UpdateCommand.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom22">Select Animals</label>
+                                <div class="input-group">
+                                    <div class="row">
+                                        @if (Model.Animals != null)
+                                        {
+                                            @foreach (var animal in Model.Animals)
+                                            {
+                                                bool isSelected = Model.UpdateCommand.Animals.Any(a => a.Id == animal.Id);
+                                                <div class="col-md-6">
+                                                    <input type="checkbox" name="UpdateCommand.SelectedAnimals" value="@animal.Id" @(isSelected ? "checked disabled" : "") />
+                                                    @animal.Name <br />
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom22">Select SubCategories</label>
+                                <div class="input-group">
+                                    <div class="row">
+                                        @if (Model.SubCategories != null)
+                                        {
+                                            @foreach (var subCategory in Model.SubCategories)
+                                            {
+                                                bool isSelected = Model.UpdateCommand.SubCategories.Any(s => s.Id == subCategory.Id);
+                                                <div class="col-md-6">
+                                                    <input type="checkbox" name="UpdateCommand.SelectedSubCategories" value="@subCategory.Id" @(isSelected ? "checked disabled" : "") />
+                                                    @subCategory.Name <br />
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ms-panel-header new">
+                        <a asp-controller="Categories" asp-action="Index" class="btn btn-secondary d-block">Back</a>
+                        <button class="btn btn-primary d-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

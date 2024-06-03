@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Wishlist";
+}
+
+@model List<WishlistItemViewModel>
+
+<!--====== SHOP SECTION START ======-->
+<section class="cart-section wishlist pt-120 pb-120">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="w-100 mb-60">
+                    <table class="table cw-cart-table mb-0">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th scope="col" class="product-name">Product</th>
+                                <th scope="col" class="product-price">Availability</th>
+                                <th scope="col" class="product-qty">Price</th>
+                                <th scope="col" class="product-price">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="product-remove text-center cw-align">
+                                        <a href="#"><i class="fas fa-times"></i></a>
+                                    </td>
+                                    @if (item.ProductImages.Any(x => x.IsMain))
+                                    {
+                                        <div class="product-thumbnail">
+                                            <img src="~/assets/img/post/@item.ProductImages.FirstOrDefault(x => x.IsMain).Path" alt="product_thumbnail">
+                                        </div>
+                                    }
+                                    <td data-title="Availability" class="has-title">
+                                        <span class="text-@(item.InStock == true ? "success" : "danger") fw-600">@(item.InStock == true ? "In Stock" : "Out of Stock")</span>
+                                    </td>
+                                    <td class="product-price cw-align has-title" data-title="Price">
+                                        <span class="product-currency"><b>₼</b></span> <span class="product-amount"><b>@item.Price</b></span>
+                                    </td>
+                                    <td data-title="Actions" class="has-title">
+                                        <a data-cart-id="@item.Id" data-product-name="@item.Title" class="main-btn btn-filled submitCartBtn">Add to Cart</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--====== SHOP SECTION END ======-->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $(".submitCartBtn").click(function () {
+
+            const productId = $(this).data("cart-id");
+            const productName = $(this).data("product-name");
+
+            $.ajax({
+                url: "/Cart/AddToCart/${productId}",
+                type: "GET",
+                data: {
+                    productId: productId
+                },
+                success: function (data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: productName + ' has been added to the cart',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("AJAX Error: " + textStatus, errorThrown);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Failed to add ' + productName + ' to the cart',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
+            });
+
+        });
+    });

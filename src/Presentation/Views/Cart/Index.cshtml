@@ -1,0 +1,199 @@
+﻿@{
+    ViewData["Title"] = "Cart";
+    int count = 1;
+    double orderTotal = 0;
+}
+
+@model List<CartItemViewModel>
+
+<!--====== SHOP SECTION START ======-->
+<section class="cart-section pt-120 pb-120">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="w-100 mb-60">
+                    <table class="table cw-cart-table mb-0">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th scope="col" class="product-name">Product</th>
+                                <th scope="col" class="product-name">Availability</th>
+                                <th scope="col" class="product-qty">Quantity</th>
+                                <th scope="col" class="product-price">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                count++;
+                                <tr data-basket-id="@item.Id">
+                                    <td class="product-remove text-center cw-align">
+                                        <button class="deleteBtn btn-icon btn-outline-danger" data-basket-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </td>
+                                    <td data-title="Product" class="has-title">
+                                        @if (item.ProductImages.Any(x => x.IsMain))
+                                        {
+                                            <div class="product-thumbnail">
+                                                <img src="~/assets/img/post/@item.ProductImages.FirstOrDefault(x => x.IsMain).Path" alt="product_thumbnail">
+                                            </div>
+                                        }
+                                        <a href="shop-detail.html">@item.Title</a>
+                                    </td>
+                                    <td data-title="Availability" class="has-title">
+                                        <span class="text-success fw-600">In Stock</span>
+                                    </td>
+                                    <td class="quantity shop-detail-content cw-qty-sec cw-align has-title" data-title="Quantity">
+                                        <div class="quantity-box">
+                                            <button type="button" data-initial-price="@item.Price" class="minus-btn">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </button>
+                                            <input type="text" class="input-qty" name="name" value="1" data-price="@item.Price" data-id="@item.Id">
+                                            <button type="button" class="plus-btn">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="product-price cw-align has-title" data-title="Price">
+                                        <span class="product-currency"><b>$ </b></span> <span class="product-amount"><b id="price-@item.Id">@item.Price</b></span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <a asp-controller="Products" asp-action="Index" class="main-btn btn-filled float-left">Continue Shoping</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="offset-lg-6 col-lg-6 col-md-12">
+                        <div class="cw-product-promo">
+                            <table class="table cw-table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td> <b>Total</b> </td>
+                                        <td class="text-right">$ <span id="orderTotal">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <b>Shipping</b> </td>
+                                        <td class="text-right">$ 2.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td> <b>Subtotal</b> </td>
+                                        <td class="text-right">$ <span id="orderTotalWithShipping">0.00</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a asp-controller="Checkout" asp-action="Create" class="main-btn btn-filled w-100">Proceed to Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--====== SHOP SECTION END ======-->
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        updateOrderTotal();
+
+        $('.plus-btn').click(function () {
+            var $priceElement = $(this).closest('tr').find('.product-amount b');
+            var price = parseFloat($priceElement.text());
+            var newPrice = price + price; 
+            $priceElement.text(newPrice.toFixed(2));
+
+            updateOrderTotal();
+        });
+
+        $('.minus-btn').click(function () {
+            var $priceElement = $(this).closest('tr').find('.product-amount b');
+            var price = parseFloat($priceElement.text());
+            var initialPrice = parseFloat($(this).data('initial-price')); 
+
+            if (price > initialPrice) {
+                var newPrice = price - initialPrice; 
+                $priceElement.text(newPrice.toFixed(2));
+
+                updateOrderTotal();
+            }
+        });
+
+        function updateOrderTotal() {
+            var total = 0;
+            $('.product-amount b').each(function () {
+                total += parseFloat($(this).text());
+            });
+            var shipping = 2.99;
+            var subtotal = total + shipping;
+            $('#orderTotal').text(total.toFixed(2));
+            $('#orderTotalWithShipping').text(subtotal.toFixed(2));
+        }
+    });
+
+    const deleteBtns = document.querySelectorAll(".deleteBtn");
+
+    deleteBtns.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const id = btn.getAttribute("data-basket-id");
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "GET",
+                        url: `/Cart/Delete/${id}`,
+                        success: function (data) {
+                            if (data.status === 200) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                );
+                                $(`tr[data-basket-id="${id}"]`).remove();
+
+                            } else {
+                                Swal.fire(
+                                    'Error',
+                                    'An error occurred while deleting the item.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Error',
+                                'An error occurred while deleting the item.',
+                                'error'
+                            );
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Cancelled',
+                        "Your file has not been deleted.",
+                        'error'
+                    );
+                }
+            });
+        });
+    });
+
+</script>

@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+@model CreateServiceCommand
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Service</li>
+                </ol>
+            </nav>
+        </div>
+        <form class="needs-validation clearfix row" method="post" enctype="multipart/form-data">
+            <div class="col-xl-12 col-md-12">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="ms-panel ms-panel-fh">
+                    <div class="ms-panel-header">
+                        <h6>Add Service Form</h6>
+                    </div>
+                    <div class="ms-panel-body">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Title</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.Title" class="form-control" placeholder="Title" required>
+                                    <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Description</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.Description" class="form-control" placeholder="Description" required>
+                                    <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ms-panel-header new">
+                        <a asp-controller="Services" asp-action="Index" class="btn btn-secondary d-block" type="submit">Back</a>
+                        <button class="btn btn-primary d-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

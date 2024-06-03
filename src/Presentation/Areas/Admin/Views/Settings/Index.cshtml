@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+@model SettingGetDTO
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Setting List</li>
+                </ol>
+            </nav>
+            <div class="ms-panel">
+                <div class="ms-panel-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Setting List</h6>
+                    </div>
+                </div>
+                <div class="ms-panel-body">
+                    <div class="table-responsive">
+                        <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table w-100 thead-primary dataTable no-footer" role="grid" aria-describedby="data-table-5_info" style="width: 462px;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th style="width: 53px;">#</th>
+                                                <th style="width: 67px;">Address</th>
+                                                <th style="width: 67px;">Phone Number</th>
+                                                <th style="width: 67px;">Email</th>
+                                                <th style="width: 67px;">Information</th>
+                                                <th style="width: 67px;">TwitterIcon</th>
+                                                <th style="width: 67px;">FaceBookIcon</th>
+                                                <th style="width: 67px;">InstagramIcon</th>
+                                                <th style="width: 67px;">Last Modified By</th>
+                                                <th style="width: 67px;">Last Modified Date</th>
+                                                <th style="width: 54px;">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row">
+                                                <td class="align-middle">1</td>
+                                                <td class="align-middle">@Model.Address</td>
+                                                <td class="align-middle">@Model.PhoneNumber</td>
+                                                <td class="align-middle">@Model.Email</td>
+                                                <td class="align-middle">@Model.Information</td>
+                                                <td class="align-middle">@Model.TwitterIcon</td>
+                                                <td class="align-middle">@Model.FaceBookIcon</td>
+                                                <td class="align-middle">@Model.InstagramIcon</td>
+                                                <td class="align-middle">@Model.LastModifiedBy</td>
+                                                <td class="align-middle">@Model.LastModifiedDate</td>
+                                                <td class="align-middle">
+                                                    <a asp-action="Update" asp-controller="Settings"><i style="color: green" class="fa-solid fa-pencil"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    const deleteBtns = document.querySelectorAll(".deleteBtn");
+
+    deleteBtns.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const id = btn.getAttribute("data-animal-id");
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "GET",
+                        url: `/Admin/Animals/Delete/${id}`,
+                        success: function (data) {
+                            if (data.status === 200) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                );
+
+                                $(`tr[data-animal-id="${id}"]`).remove();
+
+                                updateRowNumbers();
+                            } else {
+                                Swal.fire(
+                                    'Error',
+                                    'An error occurred while deleting the item.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Error',
+                                'An error occurred while deleting the item.',
+                                'error'
+                            );
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Cancelled',
+                        "Your file has not been deleted.",
+                        'error'
+                    );
+                }
+            });
+        });
+    });
+
+    function updateRowNumbers() {
+        const rows = $("tbody tr");
+        rows.each(function (index, row) {
+            $(row).find("td:first").text(index + 1);
+        });
+    }
+</script>

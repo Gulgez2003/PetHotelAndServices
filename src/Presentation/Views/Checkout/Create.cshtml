@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Checkout";
+}
+
+@model List<CartItemViewModel>
+
+<!--====== SHOP SECTION START ======-->
+<section class="checkout pt-120 pb-120 bg-white">
+    <div class="container">
+        <form method="post">
+            <div style="margin-bottom:30px;">
+                <h4><b>Billing Details</b></h4>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 space-top">
+                    <div class="checkout-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td data-title="product">
+                                            <div class="product-name">
+                                                <h6>
+                                                    <a href="#">@item.Title</a>
+                                                </h6>
+                                                <p>@item.Description</p>
+                                            </div>
+                                        </td>
+                                        <td data-title="Quantity">x1</td>
+                                        <td data-title="Total">
+                                            <strong>@item.Price</strong>
+                                        </td>
+                                    </tr>
+                                }
+                                <tr class="total">
+                                    <td>
+                                        <h6 class="mb-0">Total</h6>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <strong>115.79$</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <a asp-action="PlaceOrder" asp-controller="Checkout" style="margin-top:50px;" class="main-btn btn-filled w-100">Place Order</a>
+        </form>
+    </div>
+</section>
+<!--====== SHOP SECTION END ======-->
+

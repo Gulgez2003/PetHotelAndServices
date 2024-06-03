@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+
+@model ServiceGetDTO
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Service Detail</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-12">
+            <div class="ms-panel">
+                <div class="ms-panel-header">
+                    <h6>Service Details</h6>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-12">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-body">
+                    <h4 class="section-title bold">Animal Info</h4>
+                    <table class="table ms-profile-information">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Title</th>
+                                <td>@Model.Title</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Description</th>
+                                <td>@Model.Description</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Created Date</th>
+                                <td>@Model.CreatedDate</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Created By</th>
+                                <td>@Model.CreatedBy</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Modified Date</th>
+                                <td>@Model.LastModifiedDate</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Modified By</th>
+                                <td>@Model.LastModifiedBy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="new">
+                        <a asp-action="Index" asp-controller="Services" type="button" class="btn btn-secondary deleteBtn">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,160 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+@model ProductSubCategoryVM
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                </ol>
+            </nav>
+        </div>
+        <form class="needs-validation clearfix row" method="post" enctype="multipart/form-data">
+            <div class="col-xl-6 col-md-12">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="ms-panel ms-panel-fh">
+                    <div class="ms-panel-header">
+                        <h6>Add Product Form</h6>
+                    </div>
+                    <div class="ms-panel-body">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Title</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.CreateCommand.Title" class="form-control" placeholder="Title" required>
+                                    <span asp-validation-for="@Model.CreateCommand.Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Description</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.CreateCommand.Description" class="form-control" placeholder="Description" required>
+                                    <span asp-validation-for="@Model.CreateCommand.Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Price</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.CreateCommand.Price" class="form-control" placeholder="Price" required>
+                                    <span asp-validation-for="@Model.CreateCommand.Price" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Units In Stock</label>
+                                <div class="input-group">
+                                    <input type="number" asp-for="@Model.CreateCommand.UnitsInStock" class="form-control" placeholder="Units In Stock" required>
+                                    <span asp-validation-for="@Model.CreateCommand.UnitsInStock" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom22">Select Colours</label>
+                                <div class="input-group">
+                                    <div class="row">
+                                        @if (Model.Colours != null)
+                                        {
+                                            @foreach (var colour in Model.Colours)
+                                            {
+                                                <div class="col-md-6">
+                                                    <input type="checkbox" name="CreateCommand.Colours" value="@colour" />
+                                                    @colour
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom22">Select Sub-category</label>
+                                <div class="input-group">
+                                    <select class="form-control" asp-for="@Model.CreateCommand.SubCategoryId">
+                                        @if (Model.SubCategories != null)
+                                        {
+                                            @foreach (var item in Model.SubCategories)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 mb-3">
+                                <label class="form-label">Upload Images</label>
+                                <input type="file" class="form-control" accept="image/*" asp-for="@Model.CreateCommand.Files" multiple>
+                                <span asp-validation-for="@Model.CreateCommand.Files" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ms-panel">
+                            <div class="ms-panel-header">
+                                <h6>Animal </h6>
+                            </div>
+                            <div class="ms-panel-body">
+                                <div id="imagesSlider" class="ms-image-slider carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner" id="carouselInner">
+                                    </div>
+                                    <ol class="carousel-indicators" id="carouselIndicators">
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="ms-panel-header new">
+                                <a asp-controller="Products" asp-action="Index" class="btn btn-secondary d-block" type="submit">Back</a>
+                                <button class="btn btn-primary d-block" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelector('input[type="file"]').addEventListener('change', function () {
+        const reader = new FileReader();
+        const imagesSlider = document.getElementById('imagesSlider');
+        const carouselInner = document.getElementById('carouselInner');
+        const carouselIndicators = document.getElementById('carouselIndicators');
+
+        reader.onload = function (e) {
+            const imgSrc = e.target.result;
+
+            const carouselItem = document.createElement('div');
+            carouselItem.classList.add('carousel-item');
+            if (carouselInner.children.length === 0) {
+                carouselItem.classList.add('active');
+            }
+            const img = document.createElement('img');
+            img.classList.add('d-block');
+            img.classList.add('w-100');
+            img.src = imgSrc;
+            carouselItem.appendChild(img);
+            carouselInner.appendChild(carouselItem);
+
+            const indicator = document.createElement('li');
+            indicator.setAttribute('data-target', '#imagesSlider');
+            indicator.setAttribute('data-slide-to', carouselInner.children.length - 1);
+            if (carouselIndicators.children.length === 0) {
+                indicator.classList.add('active');
+            }
+            const indicatorImg = document.createElement('img');
+            indicatorImg.classList.add('d-block');
+            indicatorImg.classList.add('w-100');
+            indicatorImg.src = imgSrc;
+            indicator.appendChild(indicatorImg);
+            carouselIndicators.appendChild(indicator);
+        };
+
+        reader.readAsDataURL(this.files[0]);
+    });
+</script>

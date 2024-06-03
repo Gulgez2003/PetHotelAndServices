@@ -1,0 +1,127 @@
+﻿@{
+    ViewData["Title"] = "Details";
+    var count = 0;
+}
+
+@model ProductGetDTO
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Product Detail</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-12">
+            <div class="ms-panel">
+                <div class="ms-panel-header">
+                    <h6>Product Details</h6>
+                </div>
+                <div class="ms-panel-body">
+                    <div id="arrowSlider" class="ms-arrow-slider carousel slide" data-ride="carousel" data-interval="false">
+                        <div class="carousel-inner">
+                            @foreach (var item in Model.ProductImages)
+                            {
+                                count++;
+                                <div class="carousel-item @(item == Model.ProductImages.First() ? "active" : "")">
+                                    <img class="d-block w-100" src="~/assets/img/post/@item.Path" alt="Product image @count">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h3 class="text-white">Product image @count</h3>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <a class="carousel-control-prev" href="#arrowSlider" role="button" data-slide="prev">
+                            <span class="material-icons" aria-hidden="true">keyboard_arrow_left</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#arrowSlider" role="button" data-slide="next">
+                            <span class="material-icons" aria-hidden="true">keyboard_arrow_right</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-6">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-body">
+                    <h4 class="section-title bold">Animal Info</h4>
+                    <table class="table ms-profile-information">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Title</th>
+                                <td>@Model.Title</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Description</th>
+                                <td>@Model.Description</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Units In Stock</th>
+                                <td>@Model.UnitsInStock</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Price</th>
+                                <td>@Model.Price</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Sub-category</th>
+                                <td>@Model.SubCategory.Name</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Created Date</th>
+                                <td>@Model.CreatedDate</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Created By</th>
+                                <td>@Model.CreatedBy</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Modified Date</th>
+                                <td>@Model.LastModifiedDate</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Modified By</th>
+                                <td>@Model.LastModifiedBy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-6">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-body">
+                    <h4 class="section-title bold">Colours</h4>
+                    <p class="description">
+                        @foreach (var colour in Model.Colours)
+                        {
+                            <span class="badge badge-primary">@colour </span>
+                        }
+                    </p>
+                </div>
+                <div class="ms-quick-stats">
+                    <div class="ms-stats-grid">
+                        <i class="fa fa-bullhorn"></i>
+                        <p class="ms-text-dark">1,033</p>
+                        <span>Today Order</span>
+                    </div>
+                    <div class="ms-stats-grid">
+                        <i class="fa fa-heart"></i>
+                        <p class="ms-text-dark">3,039</p>
+                        <span>Favourite</span>
+                    </div>
+                </div>
+            </div>
+            <div class="new">
+                <button asp-action="Update" asp-controller="Animals" asp-route-id="@Model.Id" type="button" class="btn btn-primary">Edit</button>
+                <button data-animal-id="@Model.Id" type="button" class="btn btn-secondary deleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

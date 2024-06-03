@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+@model SubCategoryProductCategoryVM
+
+<div class="ms-content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add Sub-category</li>
+                </ol>
+            </nav>
+        </div>
+        <form class="needs-validation clearfix row" method="post" enctype="multipart/form-data">
+            <div class="col-xl-12 col-md-12">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <div class="ms-panel ms-panel-fh">
+                    <div class="ms-panel-header">
+                        <h6>Add Sub-category Form</h6>
+                    </div>
+                    <div class="ms-panel-body">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom18">Name</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="@Model.CreateCommand.Name" class="form-control" placeholder="Sub-category Name" required>
+                                    <span asp-validation-for="@Model.CreateCommand.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom22">Select Category</label>
+                                <div class="input-group">
+                                    <select class="form-control" asp-for="@Model.CreateCommand.CategoryId">
+                                        @if (Model.Categories != null)
+                                        {
+                                            @foreach (var item in Model.Categories)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom22">Select Products</label>
+                                <div class="input-group">
+                                    <div class="row">
+                                        @if (Model.Products != null)
+                                        {
+                                            @foreach (var product in Model.Products)
+                                            {
+
+                                                <div class="col-md-6">
+                                                    <input type="checkbox" name="CreateCommand.SelectedCategories" value="@product.Id" />
+                                                    @product.Title
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ms-panel-header new">
+                        <a asp-controller="SubCategories" asp-action="Index" class="btn btn-secondary d-block" type="submit">Back</a>
+                        <button class="btn btn-primary d-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
